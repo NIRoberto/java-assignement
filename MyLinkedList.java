@@ -1,5 +1,4 @@
 
-
 public class MyLinkedList {
 
     class Node {
@@ -14,7 +13,6 @@ public class MyLinkedList {
             data = a;
             next = null;
         }
-
     }
     Node head;
     Node tail;
@@ -67,7 +65,10 @@ public class MyLinkedList {
         }
         size++;
     }
-    public   String toString(){
+
+
+  
+    public   String toString(){ 
         String S =  new String("");
         if (!isEmpty()) {
             Node current = head;
@@ -79,8 +80,58 @@ public class MyLinkedList {
             S += "]";
         }
         return  S;
-
-
+    }
+	
+    public MyLinkedList concantenate(MyLinkedList  l) {
+     if(l.head == null){
+        return null;
+     }
+     else{
+        Node current  =  l.head;
+        while (current !=null) {
+            insertAtBack(current.data);
+            current =  current.next;
+        }
+     }
+       return this;
     }
 
+    public  boolean isSorted(MyLinkedList l){
+         boolean output = true;
+        Node current = l.head;
+        while (current.next != null) {
+            if (current.data > current.next.data) {
+               output =false;
+            }
+            current = current.next;
+        }
+        return output;
+    }
+     public   MyLinkedList  merge(MyLinkedList l){ 
+     if(!(isSorted(l) && isSorted(this))){
+        return null;
+     }
+     else{
+        this.concantenate(l);
+        System.out.println(this.toString());
+        Node current = this.head, index = null;  
+        int temp;    
+            while(current != null) {  
+                index = current.next;  
+                while(index != null) {  
+                    if(current.data > index.data) {  
+                        temp = current.data;  
+                        current.data = index.data;  
+                        index.data = temp;  
+                    }  
+                    index = index.next;  
+                }  
+                current = current.next;  
+            }      
+        }  
+
+     return this;
+    }
+
+    
 }
